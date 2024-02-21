@@ -1,42 +1,44 @@
-# Hello World with React boilerplate
+# Hello from our To Do List: 
 
-Start coding a react application
+Important discoveries on the project. 
 
-> If you are working locally instead of using codespaces or gitpod, please follow [local installation steps](#local-installation-skip-if-you-are-working-on-codespaces-or-gitpod) and come back to this part of the readme.
+TODO FORM COMPONENT:
+Onsubmit is triggered by the following:
+    1)clicking submit button within the form 
+    2)pressing Enter when focused on an input field
 
-## How to start coding?
+Console logging state on handler function:
+    PROBLEM
+        State is async, so when we set state in a handler and then console log, it will log first and setState later, so the value logged will always be before the change.
+    SOLUTION
+        console log in useEffect, which is guaranteed to run AFTER the component has rendered. 
+            1)handle function changes state 
+            2)component renders 
+            3)useEffect runs with the console log
 
-- Install the packages with `$ npm install`.
-- Run the webpack server with `$ npm run start`
+Importance of useRef in UX:
+    Every time the component renders, will AUTO FOCUS to the input, thus avoiding the need to constantly clicking in the input to write. 
 
-You can update the `styles/index.css` or `js/index.js` depending on your needs.
-Add more files into your, `./src/js/components` or styles folder as you need them.
+TODO LIST COMPONENT: 
+    Modifying toDos state array based off a function that toggles the complete property 
 
-## Local Installation (skip if you are working on codespaces or gitpod)
+    1)Create new variable and map over directly, finally set the state to the variable modified
 
-Download the boilerplate using git
+         let updatedToDos = toDos.map(toDo => {
+             if(toDo.id === id){
+                 toDo.isComplete = !toDo.isComplete
+             }
+             return toDo
+         })
+         setToDos(updatedToDos)
 
-```
-$ git clone https://github.com/4GeeksAcademy/react-hello.git
-$ cd react-hello
-```
+    2)Work directly inside the set function 
 
-## Publish your website!
+        setToDos(prevToDos => {
+            return prevToDos.map(prevToDo => {
+                return prevToDo.id === id ? {...prevToDo, isComplete: !prevToDo.isComplete} : prevToDo
+            })
+        })
 
-This boilerplate is 100% compatible with the free [github pages](https://pages.github.com/) and [vercel](https://vercel.com/) hosting.
-
-It takes just 2 minutes to deploy, [click here to start the process](https://github.com/4GeeksAcademy/react-hello/blob/master/docs/DEPLOY.md).
-
-## Other features
-
-- Automatic Code Formatting: Use of [Prettier](https://prettier.io/) for automatic code indentation and formatting.
-- Error reporting: Use of [eslint](https://eslint.org/) for better error reporting.
-- Hot Deploy: Use of [Webpack Development Server](https://webpack.js.org/configuration/dev-server/) for hot deploy and live reload.
-- One-command publish of the code to github pages with `npm run deploy:github`.
-- Babel 7 (really fast).
-
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+        
+    

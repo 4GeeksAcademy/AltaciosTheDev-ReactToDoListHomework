@@ -3,60 +3,58 @@ import TodoForm from './TodoForm'
 import Todo from './Todo';
 
 function TodoList() {
-    //state variable storing the toDos
+    
+    //1)toDos state variable that will be an array to house all toDo objects.
     const [toDos, setToDos] = useState([])
 
-    //Every time toDos change, console log them out
-     useEffect(() => {
-         console.log(toDos);
-     }, [toDos]);
-
-    //function that will allow for the addition of a new toDo object into the toDos array.
+    //2)function that will allow for the addition of a new toDo object into the toDos array. It receives as parameter, the toDo created at the moment of submission in the todoForm.
     const addToDo = (newToDo) => {
-        //Will check the toDo text property for empty text or just whitespaces, in this case returns(exits) from the function.
-        if(!newToDo.text || /^\s*$/.test(newToDo.text)){
+        //2.1condition to only add new to do if not empty or not only white space
+        if(/^\s*$/.test(newToDo.text)){
             return
         }
         else{
+        //2.2 add newToDo to the front of the toDos state []
             setToDos((prevToDos) => [newToDo,...prevToDos])    
         }    
     }
 
-    //function that will take care to edit the toDo
+    //6. function that will take care to edit the toDo
     const updateToDo = (id, newToDo) =>{
-        if(!newToDo.text || /^\s*$/.test(newToDo.text)){
+        if(/^\s*$/.test(newToDo.text)){
             return
         }
         else{
             setToDos((prevToDos) => {
-                return prevToDos.map(toDo => {
-                    return toDo.id === id ? newToDo : toDo
+                return prevToDos.map(prevToDo => {
+                    return prevToDo.id === id ? newToDo : prevToDo
                 })
             })    
         }
     }
 
 
-    //function that will toggle the isComplete property of the toDo object 
+    //5.function that will toggle the isComplete property of the toDo object 
     const completeToDo = (id) => {
-        let updatedToDos = toDos.map(toDo => {
-            if(toDo.id === id){
-                toDo.isComplete = !toDo.isComplete
-            }
-            return toDo
+        setToDos(prevToDos => {
+            return prevToDos.map(prevToDo => {
+                return prevToDo.id === id ? {...prevToDo, isComplete: !prevToDo.isComplete} : prevToDo
+            })
         })
-        setToDos(updatedToDos)
     }
-    //function that will eliminate the todo object that matches the id given as parameter
+    //4. function that will eliminate the todo object that matches the id of the toDo given as parameter
     const removeToDo = (id) => {
+        //4.1 filter array to return all BUT the matching id toDo
         let toDosMinusOne =  toDos.filter((toDo, index) => {
             return toDo.id != id
         })
+        //4.2 setToDos state array to the newly filtered
         setToDos(toDosMinusOne)
     }
 
     
-
+    //3.1 render the Form and send the addToDo function as prop.
+    //3.2 render the todo and create the component to do 
   return (
     <div>
         <h1>What's the plan for Today?</h1>
