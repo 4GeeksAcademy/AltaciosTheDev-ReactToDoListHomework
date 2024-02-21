@@ -6,7 +6,7 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 import { RiCheckboxCircleFill } from "react-icons/ri";
 
 //1)destructure received props (toDos)
-function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
+function TodoWrapper({toDos, completeToDo, removeToDo, updateToDo}) {
     //edit state is default to id null and value empty 
     const [edit, setEdit] = useState({
         id: null,
@@ -14,7 +14,7 @@ function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
     })
 
     //5e receive newTodoObj and pass it ot updateToDo and id
-    const submitUpdate = newToDoObj => {
+    const updateToDoHigher = newToDoObj => {
         //6e if id matches, then prevTodo ges overwritten with newToDo
         updateToDo(edit.id, newToDoObj)
         setEdit({
@@ -46,7 +46,7 @@ function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
     //2e) IF edit, which becomes true after edit icon is clicked snd setEdit sets it to true, form is returned
     if(edit.id){
         //3e) render a TodoForm but with edit as prop and new fuction as addToDo prop
-        return <TodoForm edit={edit} addToDo={submitUpdate}/>
+        return <TodoForm edit={edit} submitToDo={updateToDoHigher}/>
     }
 
     //{toDosElements} would be if i was inside JSX mode
@@ -54,4 +54,4 @@ function Todo({toDos, completeToDo, removeToDo, updateToDo}) {
   return toDosElements
 }
 
-export default Todo
+export default TodoWrapper

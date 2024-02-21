@@ -30,7 +30,7 @@ function TodoForm(props) {
         }
         //4.3 AddToDo is a function held in the toDoList passed in to the Form as a prop. It takes a ToDo as argument and uses it in the declaration to modify the toDos array in the list.
         //4e)submitupdate=addTodo y ejecuta la funcion pasando un newToDo como argumento
-        props.addToDo(newTodo)
+        props.submitToDo(newTodo)
         //4.4 Clear the state input after the todo has been added to the toDos state.
         setInput("")
     }

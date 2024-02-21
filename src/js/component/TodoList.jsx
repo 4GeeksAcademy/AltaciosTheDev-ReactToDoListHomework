@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import TodoForm from './TodoForm'
-import Todo from './Todo';
+import TodoWrapper from './TodoWrapper';
 
 function TodoList() {
     
@@ -58,8 +58,8 @@ function TodoList() {
   return (
     <div>
         <h1>What's the plan for Today?</h1>
-        <TodoForm addToDo={addToDo}/>
-        <Todo toDos={toDos} completeToDo={completeToDo} removeToDo={removeToDo} updateToDo={updateToDo}/>
+        <TodoForm submitToDo={addToDo}/>
+        <TodoWrapper toDos={toDos} completeToDo={completeToDo} removeToDo={removeToDo} updateToDo={updateToDo}/>
     </div>
   )
 }
