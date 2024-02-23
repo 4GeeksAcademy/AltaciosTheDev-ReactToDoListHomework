@@ -16,6 +16,7 @@ const App = () => {
 		}
 	})
 
+	//localStorage is another businesss
 	useEffect(() => {
 		//storing to local storage every time todos change
 		localStorage.setItem("ITEMS", JSON.stringify(todos))
