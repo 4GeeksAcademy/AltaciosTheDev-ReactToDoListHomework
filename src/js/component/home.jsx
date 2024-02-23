@@ -4,7 +4,17 @@ import { nanoid } from "nanoid"
 
 function App() {
   const [task, setTask] = useState("")
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState(() => {
+    const fromLocalStorage = localStorage.getItem("ITEMS")
+
+    //default value for todos are empty array or whatever is in localstorage
+    if(fromLocalStorage === null){
+      return []
+    }
+    else{
+      return JSON.parse(fromLocalStorage)
+    }
+  })
 
   //edit mode state will serve to indicate which function will be used in submit, either add or edit.
   const [edit, setEdit] = useState({
@@ -15,9 +25,11 @@ function App() {
 
   const inputRef = useRef()
 
+  //when todos change, log them out, focus on input, send them to localStorage
   useEffect(() => {
     console.log(todos)
     inputRef.current.focus()
+    localStorage.setItem("ITEMS", JSON.stringify(todos))
   },[todos])
 
   function handleSubmit(e){
